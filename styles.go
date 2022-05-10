@@ -6,12 +6,11 @@ import (
 )
 
 const (
-	red      = "#F28FAD"
-	flamingo = "#F2CDCD"
-	mauve    = "#DDB6F2"
-	sky      = "#89DCEB"
-	green    = "#ABE9B3"
-	white    = "#F8F8F0"
+	red   = "#F28FAD"
+	mauve = "#DDB6F2"
+	sky   = "#89DCEB"
+	green = "#ABE9B3"
+	white = "#F8F8F0"
 )
 
 var (
