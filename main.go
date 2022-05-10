@@ -15,7 +15,6 @@ var (
 	full     bool
 	related  bool
 	examples bool
-	arg      string
 
 	rootCmd = &cobra.Command{
 		Use:   "def []",
@@ -53,7 +52,9 @@ func execute(args []string) error {
 			return err
 		}
 		var words []Word
-		json.Unmarshal(body, &words)
+		if err := json.Unmarshal(body, &words); err != nil {
+			return err
+		}
 		words[0].render()
 	case 404:
 		fmt.Println(errorStyle.Render("defeinitions not found"))
