@@ -23,8 +23,8 @@ Go 1.16 or higher required. ([install instructions](https://golang.org/doc/insta
 
 ## Usage
 
-```sh
-$ def <word>
+```
+def <word>
 ```
 
 `def -h` for more information.
