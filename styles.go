@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/charmbracelet/lipgloss"
 	lg "github.com/charmbracelet/lipgloss"
 )
 
@@ -19,7 +18,7 @@ var (
 	greenColor  = lg.Color(green)
 	mauveColor  = lg.Color(mauve)
 	whiteColor  = lg.Color(white)
-	dimmedColor = lipgloss.AdaptiveColor{Light: "#C3BAC6", Dark: "#6E6C7E"}
+	dimmedColor = lg.AdaptiveColor{Light: "#C3BAC6", Dark: "#6E6C7E"}
 
 	titleMargin = lg.NewStyle().
 			Margin(1, 0, 1, 2)
