@@ -2,11 +2,11 @@
 
 > A comfy dictionary navigator for the command line. ☁️
 
-![scrot](assets/scrot.png)
-
 [![Latest Release](https://img.shields.io/github/release/x6r/def.svg)](https://github.com/x6r/def/releases)
 [![Build Status](https://img.shields.io/github/workflow/status/x6r/def/build?logo=github)](https://github.com/x6r/def/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/x6r/def)](https://goreportcard.com/report/github.com/x6r/def)
+
+![scrot](assets/scrot.png)
 
 ## Installation
 
