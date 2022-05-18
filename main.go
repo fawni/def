@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -16,7 +15,7 @@ var (
 	related  bool
 	examples bool
 
-	rootCmd = &cobra.Command{
+	cmd = &cobra.Command{
 		Use:   "def []",
 		Short: "def is a command-line dictionary client",
 		Args:  cobra.MinimumNArgs(1),
@@ -27,13 +26,13 @@ var (
 )
 
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(&full, "full", "f", false, "displays synonyms, antonyms and examples if found")
-	rootCmd.PersistentFlags().BoolVarP(&related, "related", "r", false, "displays synonyms and antonyms if found")
-	rootCmd.PersistentFlags().BoolVarP(&examples, "examples", "e", false, "displays examples if found")
+	cmd.PersistentFlags().BoolVarP(&full, "full", "f", false, "displays synonyms, antonyms and examples if found")
+	cmd.PersistentFlags().BoolVarP(&related, "related", "r", false, "displays synonyms and antonyms if found")
+	cmd.PersistentFlags().BoolVarP(&examples, "examples", "e", false, "displays examples if found")
 }
 
 func main() {
-	if err := rootCmd.Execute(); err != nil {
+	if err := cmd.Execute(); err != nil {
 		fmt.Println(errorStyle.Render(err.Error()))
 	}
 }
@@ -91,7 +90,7 @@ func (w Word) getMeanings() (s string) {
 		s += "\n" + posStyle.Render(meaning.PartOfSpeech)
 		s += meaning.getMeaningSynonymAndAnyonym()
 		for i, definition := range meaning.Definitions {
-			n := strconv.Itoa(i+1) + ". "
+			n := fmt.Sprintf("%d. ", i+1)
 			s += "\n" + textStyle.Render(n+definition.Definition)
 			s += definition.getExample()
 		}
@@ -104,18 +103,19 @@ func (m Meaning) getMeaningSynonymAndAnyonym() (s string) {
 	if !full && !related {
 		return
 	}
+
 	const max = 4
 	switch {
 	case len(m.Synonyms) > max:
 		s += " " + synonymStyle.Render(strings.Join(m.Synonyms[:max], ", "))
-	case len(m.Synonyms) > 0:
+	default:
 		s += " " + synonymStyle.Render(strings.Join(m.Synonyms, ", "))
 	}
 
 	switch {
 	case len(m.Antonyms) > max:
 		s += " " + antonymStyle.Render(strings.Join(m.Antonyms[:max], ", "))
-	case len(m.Antonyms) > 0:
+	default:
 		s += " " + antonymStyle.Render(strings.Join(m.Antonyms, ", "))
 	}
 
@@ -126,8 +126,10 @@ func (d Definition) getExample() (s string) {
 	if !full && !examples {
 		return
 	}
+
 	if d.Example != "" {
 		s = exampleStyle.Render("\n\"" + d.Example + "\"")
 	}
+
 	return
 }
