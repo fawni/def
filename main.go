@@ -16,7 +16,7 @@ var (
 	examples bool
 
 	cmd = &cobra.Command{
-		Use:   "def []",
+		Use:   "def <word>",
 		Short: "def is a command-line dictionary client",
 		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
