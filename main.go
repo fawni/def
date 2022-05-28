@@ -54,7 +54,9 @@ func execute(args []string) error {
 		if err := json.Unmarshal(body, &words); err != nil {
 			return err
 		}
-		words[0].render()
+		for _, word := range words {
+			word.render()
+		}
 	case 404:
 		fmt.Println(errorStyle.Render("defeinitions not found"))
 	default:
