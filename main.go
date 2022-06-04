@@ -73,7 +73,7 @@ func (w Word) render() {
 }
 
 // the api is somewhat inconsistent for phonems so we have to
-//  search for the phonetic of a word, that is if it exists
+// search for the phonetic of a word, that is if it exists
 func (w Word) getPhonetic() string {
 	if w.Phonetic != "" {
 		return " - " + phoneticStyle.Render(w.Phonetic)
@@ -90,7 +90,7 @@ func (w Word) getPhonetic() string {
 func (w Word) getMeanings() (s string) {
 	for _, meaning := range w.Meanings {
 		s += "\n" + posStyle.Render(meaning.PartOfSpeech)
-		s += meaning.getMeaningSynonymAndAnyonym()
+		s += meaning.getMeaningSynonymAndAntonym()
 		for i, definition := range meaning.Definitions {
 			n := fmt.Sprintf("%d. ", i+1)
 			s += "\n" + textStyle.Render(n+definition.Definition)
@@ -101,7 +101,7 @@ func (w Word) getMeanings() (s string) {
 	return
 }
 
-func (m Meaning) getMeaningSynonymAndAnyonym() (s string) {
+func (m Meaning) getMeaningSynonymAndAntonym() (s string) {
 	if !full && !related {
 		return
 	}
