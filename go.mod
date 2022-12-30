@@ -1,4 +1,4 @@
-module github.com/x6r/def
+module github.com/fawni/def
 
 go 1.18
 

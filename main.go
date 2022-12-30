@@ -96,7 +96,6 @@ func (w Word) getMeanings() (s string) {
 			s += "\n" + textStyle.Render(n+definition.Definition)
 			s += definition.getExample()
 		}
-
 	}
 	return
 }

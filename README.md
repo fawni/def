@@ -2,9 +2,9 @@
 
 > A comfy dictionary navigator for the command line. ☁️
 
-[![Latest Release](https://img.shields.io/github/release/x6r/def.svg)](https://github.com/x6r/def/releases)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/x6r/def/build.yml?logo=github&branch=master)](https://github.com/x6r/def/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/x6r/def)](https://goreportcard.com/report/github.com/x6r/def)
+[![Latest Release](https://img.shields.io/github/release/fawni/def.svg)](https://github.com/fawni/def/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/fawni/def/build.yml?logo=github&branch=master)](https://github.com/fawni/def/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/fawni/def)](https://goreportcard.com/report/github.com/fawni/def)
 
 ![scrot](assets/scrot.png)
 
@@ -12,14 +12,14 @@
 
 ### Binaries
 
-Download a binary from the [releases](https://github.com/x6r/def/releases)
+Download a binary from the [releases](https://github.com/fawni/def/releases)
 page.
 
 ### Build from source
 
 Go 1.16 or higher required. ([install instructions](https://golang.org/doc/install.html))
 
-    go install github.com/x6r/def@latest
+    go install github.com/fawni/def@latest
 
 ## Usage
 
