@@ -5,19 +5,19 @@ import (
 )
 
 const (
-	red   = "#F28FAD"
-	mauve = "#DDB6F2"
-	sky   = "#89DCEB"
-	green = "#ABE9B3"
-	white = "#F8F8F0"
+	RED   = "#F28FAD"
+	MAUVE = "#DDB6F2"
+	SKY   = "#89DCEB"
+	GREEN = "#ABE9B3"
+	WHITE = "#F8F8F0"
 )
 
 var (
-	redColor    = lg.Color(red)
-	skyColor    = lg.Color(sky)
-	greenColor  = lg.Color(green)
-	mauveColor  = lg.Color(mauve)
-	whiteColor  = lg.Color(white)
+	redColor    = lg.Color(RED)
+	skyColor    = lg.Color(SKY)
+	greenColor  = lg.Color(GREEN)
+	mauveColor  = lg.Color(MAUVE)
+	whiteColor  = lg.Color(WHITE)
 	dimmedColor = lg.AdaptiveColor{Light: "#C3BAC6", Dark: "#6E6C7E"}
 
 	titleMargin = lg.NewStyle().
