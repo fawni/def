@@ -17,7 +17,7 @@ page.
 
 ### Build from source
 
-Go 1.16 or higher required. ([install instructions](https://golang.org/doc/install.html))
+Go 1.18 or higher required. ([install instructions](https://golang.org/doc/install.html))
 
     go install github.com/fawni/def@latest
 
