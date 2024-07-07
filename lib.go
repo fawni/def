@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"github.com/muesli/reflow/wordwrap"
 )
 
 type word struct {
@@ -31,13 +33,13 @@ type definition struct {
 }
 
 func (w word) render() {
-	res := titleMargin.Render(titleStyle.Render(w.Word) + w.getPhonetic())
-	res += w.getMeanings()
+	res := titleMargin.Render(titleStyle.Render(w.Word) + w.renderPhonetic())
+	res += w.renderMeanings()
 	fmt.Println(res + "\n")
 }
 
 // the api is somewhat inconsistent for phonems so we have to search for the phonetic of a word, that is if it exists
-func (w word) getPhonetic() string {
+func (w word) renderPhonetic() string {
 	if w.Phonetic != "" {
 		return " - " + phoneticStyle.Render(w.Phonetic)
 	}
@@ -49,20 +51,20 @@ func (w word) getPhonetic() string {
 	return ""
 }
 
-func (w word) getMeanings() (s string) {
+func (w word) renderMeanings() (s string) {
 	for _, meaning := range w.Meanings {
 		s += "\n" + posStyle.Render(meaning.PartOfSpeech)
-		s += meaning.getMeaningSynonymAndAntonym()
+		s += meaning.renderMeaningSynonymAndAntonym()
 		for i, definition := range meaning.Definitions {
 			n := fmt.Sprintf("%d. ", i+1)
-			s += "\n" + textStyle.Render(n+definition.Definition)
-			s += definition.getExample()
+			s += "\n" + textStyle.Render(n+wordwrap.String(definition.Definition, 70))
+			s += definition.renderExample()
 		}
 	}
 	return
 }
 
-func (m meaning) getMeaningSynonymAndAntonym() (s string) {
+func (m meaning) renderMeaningSynonymAndAntonym() (s string) {
 	if !full && !related {
 		return
 	}
@@ -83,7 +85,7 @@ func (m meaning) getMeaningSynonymAndAntonym() (s string) {
 	return
 }
 
-func (d definition) getExample() (s string) {
+func (d definition) renderExample() (s string) {
 	if !full && !examples {
 		return
 	}
