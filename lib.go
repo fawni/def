@@ -91,7 +91,7 @@ func (d definition) renderExample() (s string) {
 	}
 
 	if d.Example != "" {
-		s = exampleStyle.Render("\n\"" + d.Example + "\"")
+		s = exampleStyle.Render(wordwrap.String("\n\"" + d.Example + "\"", 70))
 	}
 
 	return
