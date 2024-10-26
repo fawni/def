@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 
+	"github.com/hbollon/go-edlib"
 	"github.com/spf13/cobra"
 )
 
@@ -33,6 +36,7 @@ func init() {
 func main() {
 	if err := cmd.Execute(); err != nil {
 		fmt.Println(errorStyle.Render(err.Error()))
+		os.Exit(1)
 	}
 }
 
@@ -57,10 +61,37 @@ func define(args []string) error {
 			word.render()
 		}
 	case 404:
-		fmt.Println(errorStyle.Render("definitions not found"))
+		fmt.Println(errorStyle.Render("no definitions found."))
+		suggestions(args[0])
+		os.Exit(1)
 	default:
 		fmt.Println(errorStyle.Render("failed with status " + res.Status))
+		os.Exit(1)
 	}
 
 	return nil
+}
+
+func suggestions(word string) {
+	// TODO: cache this?
+	res, err := http.Get("https://raw.githubusercontent.com/meetDeveloper/freeDictionaryAPI/refs/heads/master/meta/wordList/english.txt")
+	if err != nil {
+		return
+	}
+	defer res.Body.Close()
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return
+	}
+	var words []string
+	for _, word := range strings.Split(string(body), "\n") {
+		words = append(words, strings.TrimSpace(word))
+	}
+
+	matches, err := edlib.FuzzySearchSet(word, words, 3, edlib.JaroWinkler)
+	if err != nil {
+		return
+	}
+
+	fmt.Println(errorStyle.Render("did you mean: " + strings.Join(matches, ", ") + "?"))
 }
