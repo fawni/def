@@ -62,7 +62,7 @@ func define(args []string) error {
 		}
 	case 404:
 		fmt.Println(errorStyle.Render("no definitions found."))
-		suggestions(args[0])
+		suggest(args[0])
 		os.Exit(1)
 	default:
 		fmt.Println(errorStyle.Render("failed with status " + res.Status))
@@ -72,7 +72,7 @@ func define(args []string) error {
 	return nil
 }
 
-func suggestions(word string) {
+func suggest(word string) {
 	// TODO: cache this?
 	res, err := http.Get("https://raw.githubusercontent.com/meetDeveloper/freeDictionaryAPI/refs/heads/master/meta/wordList/english.txt")
 	if err != nil {
@@ -93,5 +93,19 @@ func suggestions(word string) {
 		return
 	}
 
-	fmt.Println(errorStyle.Render("did you mean: " + strings.Join(matches, ", ") + "?"))
+	var mstr string
+	for i, match := range matches {
+		m := "'" + match + "'"
+		if i == 0 {
+			mstr = m
+			continue
+		}
+		if i == len(matches)-1 {
+			mstr += " or " + m
+			break
+		}
+		mstr += ", " + m
+	}
+
+	fmt.Println(errorStyle.Render("did you mean: " + mstr + "?"))
 }
