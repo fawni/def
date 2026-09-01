@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -8,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/charmbracelet/fang"
 	"github.com/hbollon/go-edlib"
 	"github.com/spf13/cobra"
 )
@@ -34,14 +36,14 @@ func init() {
 }
 
 func main() {
-	if err := cmd.Execute(); err != nil {
+	if err := fang.Execute(context.Background(), cmd); err != nil {
 		fmt.Println(errorStyle.Render(err.Error()))
 		os.Exit(1)
 	}
 }
 
 func define(args []string) error {
-	res, err := http.Get("https://api.dictionaryapi.dev/api/v2/entries/en/" + args[0])
+	res, err := http.Get("https://lexicon.fawn.moe/api/" + args[0])
 	if err != nil {
 		return err
 	}
